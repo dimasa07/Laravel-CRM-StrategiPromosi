@@ -18,4 +18,8 @@ class Hasil extends Model
         'nilai',
         'urutan',
     ];
+
+    public function alternatif(){
+        return $this->belongsTo(Alternatif::class, 'id_alternatif');
+    }
 }

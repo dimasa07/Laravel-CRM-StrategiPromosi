@@ -9,7 +9,15 @@ class AlternatifService
 
  public function getAll()
   {
-      return Alternatif::all();
+      $dataAlternatif = Alternatif::all();
+      foreach($dataAlternatif as $alternatif){
+        $alternatif->hasil;
+        $alternatif->kriteria;
+        $alternatif->penilaian;
+        $alternatif->rincian_biaya;
+      }
+
+      return $dataAlternatif;
   }
 
   public function add(Alternatif $alternatif)
@@ -19,7 +27,15 @@ class AlternatifService
 
   public function getById($id)
   {
-      return Alternatif::where('id_alternatif', '=', $id)->first();
+      $alternatif = Alternatif::where('id_alternatif', '=', $id)->first();
+      if(!is_null($alternatif)){
+        $alternatif->hasil;
+        $alternatif->kriteria;
+        $alternatif->penilaian;
+        $alternatif->rincian_biaya;
+      }
+
+      return $alternatif;
   }
 
   public function update($id, $attributes = [])

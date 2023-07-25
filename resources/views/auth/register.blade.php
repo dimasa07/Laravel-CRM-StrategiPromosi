@@ -6,17 +6,17 @@
 
         <x-validation-errors class="mb-4" />
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('auth.register') }}">
             @csrf
 
             <div>
-                <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                <x-label for="nama_pengguna" value="{{ __('Nama') }}" />
+                <x-input id="nama_pengguna" class="block mt-1 w-full" type="text" name="nama_pengguna" :value="old('nama_pengguna')" required autofocus autocomplete="nama_pengguna" />
             </div>
 
             <div class="mt-4">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                <x-label for="username" value="{{ __('Username') }}" />
+                <x-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autocomplete="username" />
             </div>
 
             <div class="mt-4">

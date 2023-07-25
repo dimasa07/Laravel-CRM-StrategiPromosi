@@ -9,7 +9,12 @@ class KriteriaService
 
   public function getAll()
   {
-      return Kriteria::all();
+      $dataKriteria = Kriteria::all();
+      foreach ($dataKriteria as $kriteria) {
+        $kriteria->alternatif;
+        $kriteria->penilaian;
+      }
+      return $dataKriteria;
   }
 
   public function add(Kriteria $kriteria)
@@ -19,7 +24,12 @@ class KriteriaService
 
   public function getById($id)
   {
-      return Kriteria::where('id_kriteria', '=', $id)->first();
+      $kriteria = Kriteria::where('id_kriteria', '=', $id)->first();
+      if(!is_null($kriteria)){
+        $kriteria->alternatif;
+        $kriteria->penilaian;
+      }
+      return $kriteria;
   }
 
   public function update($id, $attributes = [])

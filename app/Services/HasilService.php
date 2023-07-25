@@ -9,7 +9,11 @@ class HasilService
 
  public function getAll()
   {
-      return Hasil::all();
+      $dataHasil = Hasil::all();
+      foreach($dataHasil as $hasil){
+        $hasil->alternatif;
+      }
+      return $dataHasil;
   }
 
   public function add(Hasil $hasil)
@@ -19,7 +23,9 @@ class HasilService
 
   public function getById($id)
   {
-      return Hasil::where('id_hasil', '=', $id)->first();
+      $hasil = Hasil::where('id_hasil', '=', $id)->first();
+      if(!is_null($hasil))$hasil->alternatif;
+      return $hasil;
   }
 
   public function update($id, $attributes = [])
@@ -30,6 +36,7 @@ class HasilService
   public function delete($id)
   {
       return $this->getById($id)->delete();
+      
   }
 
 }

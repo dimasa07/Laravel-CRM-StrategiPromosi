@@ -20,4 +20,16 @@ class Kriteria extends Model
         'bobot',
         'jenis',
     ];
+
+    public function alternatif(){
+        return $this->belongsToMany(Alternatif::class,
+            'penilaian',
+            'id_kriteria',
+            'id_alternatif'
+        );
+    }
+
+    public function penilaian(){
+        return $this->hasMany(Penilaian::class, 'id_kriteria');
+    }
 }

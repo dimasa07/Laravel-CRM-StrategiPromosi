@@ -20,4 +20,24 @@ class Alternatif extends Model
         'waktu_promosi',
         'skala_promosi',
     ];
+
+    public function rincian_biaya(){
+        return $this->hasMany(RincianBiaya::class, 'id_alternatif');
+    }
+
+    public function hasil(){
+        return $this->hasMany(Hasil::class, 'id_alternatif');
+    }
+
+    public function kriteria(){
+        return $this->belongsToMany(Kriteria::class,
+            'penilaian',
+            'id_alternatif',
+            'id_kriteria'
+        );
+    }
+
+    public function penilaian(){
+        return $this->hasMany(Penilaian::class, 'id_alternatif');
+    }
 }

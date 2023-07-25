@@ -31,6 +31,18 @@ class AdminController extends Controller
         return response()->json($hasilQuery);
     }
 
+    public function getUserById(Request $request, string $id){
+        $hasilQuery = $this->userService->getById($id);
+
+        return response()->json($hasilQuery);
+    }
+
+    public function getUserByUsername(Request $request, string $username){
+        $hasilQuery = $this->userService->getByUsername($username);
+
+        return response()->json($hasilQuery);
+    }
+
     public function tambahUser(Request $request){
         $user = new User();
         $user->fill($request->input());
@@ -56,6 +68,12 @@ class AdminController extends Controller
     ***/
     public function dataAlternatif(Request $request){
         $hasilQuery = $this->alternatifService->getAll();
+
+        return response()->json($hasilQuery);
+    }
+
+    public function getAlternatifById(Request $request, string $id){
+        $hasilQuery = $this->alternatifService->getById($id);
 
         return response()->json($hasilQuery);
     }
@@ -89,6 +107,12 @@ class AdminController extends Controller
         return response()->json($hasilQuery);
     }
 
+    public function getHasilById(Request $request, string $id){
+        $hasilQuery = $this->hasilService->getById($id);
+
+        return response()->json($hasilQuery);
+    }
+
     public function tambahHasil(Request $request){
         $hasil = new Hasil();
         $hasil->fill($request->input());
@@ -114,6 +138,12 @@ class AdminController extends Controller
     ***/
     public function dataKriteria(Request $request){
         $hasilQuery = $this->kriteriaService->getAll();
+
+        return response()->json($hasilQuery);
+    }
+
+    public function getKriteriaById(Request $request, string $id){
+        $hasilQuery = $this->kriteriaService->getById($id);
 
         return response()->json($hasilQuery);
     }
@@ -147,6 +177,12 @@ class AdminController extends Controller
         return response()->json($hasilQuery);
     }
 
+    public function getPendaftarById(Request $request, string $id){
+        $hasilQuery = $this->pendaftarService->getById($id);
+
+        return response()->json($hasilQuery);
+    }
+
     public function tambahPendaftar(Request $request){
         $pendaftar = new Pendaftar();
         $pendaftar->fill($request->input());
@@ -176,6 +212,12 @@ class AdminController extends Controller
         return response()->json($hasilQuery);
     }
 
+    public function getPenilaianById(Request $request, string $id){
+        $hasilQuery = $this->penilaianService->getById($id);
+
+        return response()->json($hasilQuery);
+    }
+
     public function tambahPenilaian(Request $request){
         $penilaian = new Penilaian();
         $penilaian->fill($request->input());
@@ -201,6 +243,12 @@ class AdminController extends Controller
     ***/
     public function dataRincianBiaya(Request $request){
         $hasilQuery = $this->rincianBiayaService->getAll();
+
+        return response()->json($hasilQuery);
+    }
+
+    public function getRincianBiayaById(Request $request, string $id){
+        $hasilQuery = $this->rincianBiayaService->getById($id);
 
         return response()->json($hasilQuery);
     }

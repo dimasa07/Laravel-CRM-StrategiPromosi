@@ -9,7 +9,11 @@ class RincianBiayaService
 
   public function getAll()
   {
-      return RincianBiaya::all();
+      $dataRincianBiaya = RincianBiaya::all();
+      foreach ($dataRincianBiaya as $rincianBiaya) {
+        $rincianBiaya->alternatif;
+      }
+      return $dataRincianBiaya;
   }
 
   public function add(RincianBiaya $rincianBiaya)
@@ -19,7 +23,11 @@ class RincianBiayaService
 
   public function getById($id)
   {
-      return RincianBiaya::where('id_rincian_biaya', '=', $id)->first();
+      $rincianBiaya = RincianBiaya::where('id_rincian_biaya', '=', $id)->first();
+      if(!is_null($rincianBiaya)){
+        $rincianBiaya->alternatif;
+      }
+      return $rincianBiaya;
   }
 
   public function update($id, $attributes = [])

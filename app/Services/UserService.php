@@ -32,16 +32,6 @@ class UserService
       return User::where('password', '=', sha1($password))->first();
   }
 
-  public function getByUsernameAndPassword($username, $password)
-  {
-      $user = User::where([
-          ['username', '=', $username],
-          ['password', '=', sha1($password)]
-      ])->first();
-      
-      return $user;
-  }
-
   public function update($id, $attributes = [])
   {
       return $this->getById($id)->update($attributes);

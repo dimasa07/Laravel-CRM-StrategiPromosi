@@ -9,11 +9,11 @@
             {{ session('status') }}
         </div>
         @endif
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('auth.login') }}">
             @csrf
             <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                <x-label for="username" value="{{ __('Username') }}" />
+                <x-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
             </div>
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Password') }}" />

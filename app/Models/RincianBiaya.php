@@ -20,4 +20,8 @@ class RincianBiaya extends Model
         'jumlah',
         'total',
     ];
+
+    public function alternatif(){
+        return $this->belongsTo(Alternatif::class, 'id_alternatif');
+    }
 }
