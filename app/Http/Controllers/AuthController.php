@@ -31,11 +31,12 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return view('test');
-            // return redirect()->intended('dashboard');
+            return redirect()->intended('dashboard');
         }
 
-        return back();
+        return back()->withErrors([
+            'username' => 'Username atau password tidak sesuai'
+        ])->onlyInput('username');
     }
 
     public function formRegister(){

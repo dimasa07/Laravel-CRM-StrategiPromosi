@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\{AdminController, AuthController};
+use App\Http\Controllers\{AdminController, AuthController, UserController};
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +37,13 @@ Route::prefix('/auth')
         Route::post('/login', 'login')->name('auth.login');
         Route::get('/register', 'formRegister')->name('auth.form.register');
         Route::post('/register', 'register')->name('auth.register');
+    });
+
+//USER
+Route::prefix('/user')
+    ->controller(UserController::class)
+    ->group(function(){
+        Route::get('/profil', 'profil')->name('user.profil');
     });
 
 // ADMIN
