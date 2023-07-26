@@ -29,6 +29,9 @@
                     <x-nav-link href="{{ route('ppsb.kelola-alternatif') }}" :active="request()->routeIs('ppsb.kelola-alternatif') ">
                         {{ __('Alternatif') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('ppsb.kelola-kriteria') }}" :active="request()->routeIs('ppsb.kelola-kriteria') ">
+                        {{ __('Kriteria') }}
+                    </x-nav-link>
                     @endif
                 </div>
             </div>

@@ -32,6 +32,17 @@ class KriteriaService
       return $kriteria;
   }
 
+  public function getByKode($kode)
+  {
+      $kriteria = Kriteria::where('kode_kriteria', '=', $kode)->first();
+      if(!is_null($kriteria)){
+        $kriteria->alternatif;
+        $kriteria->penilaian;
+      }
+
+      return $kriteria;
+  }
+
   public function update($id, $attributes = [])
   {
       return $this->getById($id)->update($attributes);

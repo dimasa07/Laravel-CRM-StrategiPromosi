@@ -122,4 +122,9 @@ Route::prefix('/ppsb')
                 return view('ppsb.kelola-alternatif');
             })->name('ppsb.kelola-alternatif');
         });
+        Route::prefix('/kelola-kriteria')->group(function(){
+            Route::get('/', function(){
+                return view('ppsb.kelola-kriteria');
+            })->name('ppsb.kelola-kriteria');
+        });
     });
