@@ -42,9 +42,9 @@
             <x-action-message class="mr-3" on="profil.saved">
                 {{ __('Saved.') }}
             </x-action-message>
-            <x-button wire:loading.attr="disabled" wire:target="photo">
+            <x-button-success type="submit" wire:loading.attr="disabled" wire:target="photo">
                 {{ __('Save') }}
-            </x-button>
+            </x-button-success>
         </x-slot>
     </x-form-section>
     <x-section-border />
@@ -77,9 +77,9 @@
                 <x-action-message class="mr-3" on="password.saved">
                     {{ __('Saved.') }}
                 </x-action-message>
-                <x-button>
+                <x-button-success type="submit">
                     {{ __('Save') }}
-                </x-button>
+                </x-button-success>
             </x-slot>
         </x-form-section>
     </div>

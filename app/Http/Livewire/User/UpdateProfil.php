@@ -38,11 +38,11 @@ class UpdateProfil extends Component
 
         $this->validate([
             'state.nama_pengguna' => 'required',
-            'state.email' => 'email',
+            // 'state.email' => 'email',
             'state.username' => 'required|min:4',
         ],[
             'state.nama_pengguna.required' => 'Tidak boleh kosong.',
-            'state.email.email' => 'Harap masukan email dengan benar.',
+            // 'state.email.email' => 'Harap masukan email dengan benar.',
             'state.username.required' => 'Tidak boleh kosong.',
             'state.username.min' => 'Username minimal 4 karakter.',
         ]);

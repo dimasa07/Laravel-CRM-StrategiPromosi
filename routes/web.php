@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\{AdminController, AuthController, UserController};
 
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +27,9 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        if(Auth::user()->hak_akses == 'Admin'){
+            return redirect()->route('admin.index');
+        }
     })->name('dashboard');
 });
 
@@ -52,6 +56,9 @@ Route::prefix('/admin')
     ->group(function () {
         Route::get('/', 'index')->name('admin.index');
         Route::prefix('/kelola-user')->group(function(){
+            Route::get('/', function(){
+                return view('admin.kelola-user');
+            })->name('admin.kelola-user');
             Route::get('/data', 'dataUser')->name('admin.kelola-user.data');
             Route::get('/data/id/{id}', 'getUserById')->name('admin.kelola-user.data.id');
             Route::get('/data/username/{username}', 'getUserByUsername')->name('admin.kelola-user.data.username');

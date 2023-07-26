@@ -22,11 +22,15 @@ class AdminController extends Controller
         public RincianBiayaService $rincianBiayaService,
     ){}
 
+    public function index(Request $request){
+        return view('dashboard');
+    }
+
     /***
      * KELOLA USER
     ***/
     public function dataUser(Request $request){
-        $hasilQuery = $this->userService->getAll();
+        $dataUser = $this->userService->getAll();
 
         return response()->json($hasilQuery);
     }

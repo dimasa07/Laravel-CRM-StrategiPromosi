@@ -13,10 +13,15 @@
                     </a>
                 </div>
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard') ">
+                <div class="hidden space-x-4 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('admin.index')  ">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @if(Auth::user()->hak_akses == 'Admin')
+                    <x-nav-link href="{{ route('admin.kelola-user') }}" :active="request()->routeIs('admin.kelola-user') ">
+                        {{ __('Kelola User') }}
+                    </x-nav-link>
+                    @endif
                 </div>
             </div>
             <div class="hidden sm:flex sm:items-center sm:ml-6">
