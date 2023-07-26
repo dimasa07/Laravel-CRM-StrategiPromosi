@@ -14,12 +14,20 @@
                 </div>
                 <!-- Navigation Links -->
                 <div class="hidden space-x-4 sm:-my-px sm:ml-10 sm:flex">
+                    @if(Auth::user()->hak_akses == 'Admin')
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('admin.index')  ">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    @if(Auth::user()->hak_akses == 'Admin')
                     <x-nav-link href="{{ route('admin.kelola-user') }}" :active="request()->routeIs('admin.kelola-user') ">
                         {{ __('Kelola User') }}
+                    </x-nav-link>
+                    @endif
+                    @if(Auth::user()->hak_akses == 'PPSB')
+                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('ppsb.index')  ">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('ppsb.kelola-alternatif') }}" :active="request()->routeIs('ppsb.kelola-alternatif') ">
+                        {{ __('Alternatif') }}
                     </x-nav-link>
                     @endif
                 </div>

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\{AdminController, AuthController, UserController};
+use App\Http\Controllers\{AdminController, PPSBController, AuthController, UserController};
 
 use Illuminate\Support\Facades\Auth;
 
@@ -29,6 +29,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         if(Auth::user()->hak_akses == 'Admin'){
             return redirect()->route('admin.index');
+        }else if(Auth::user()->hak_akses == 'PPSB'){
+            return redirect()->route('ppsb.index');
         }
     })->name('dashboard');
 });
@@ -107,5 +109,17 @@ Route::prefix('/admin')
             Route::post('/tambah', 'tambahRincianBiaya')->name('admin.kelola-rincian_biaya.tambah');
             Route::post('/ubah', 'ubahRincianBiaya')->name('admin.kelola-rincian_biaya.ubah');
             Route::get('/hapus/{id}', 'hapusRincianBiaya')->name('admin.kelola-rincian_biaya.hapus');
+        });
+    });
+
+//USER
+Route::prefix('/ppsb')
+    ->controller(PPSBController::class)
+    ->group(function(){
+        Route::get('/', 'index')->name('ppsb.index');
+        Route::prefix('/kelola-alternatif')->group(function(){
+            Route::get('/', function(){
+                return view('ppsb.kelola-alternatif');
+            })->name('ppsb.kelola-alternatif');
         });
     });

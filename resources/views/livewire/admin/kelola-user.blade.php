@@ -127,6 +127,9 @@
                             <x-action-message class="mr-3" on="user.deleted">
                                 {{ __('Data User telah dihapus.') }}
                             </x-action-message>
+                            <x-action-message class="mr-3" on="user.deleteFailed">
+                                {{ __('Tidak bisa menghapus akun utama Admin atau akun sendiri.') }}
+                            </x-action-message>
                             <div class="inline-flex" x-show="!deleted">
                                 <x-button-info class="mx-2" type="submit" wire:loading.attr="disabled" wire:target="photo">
                                     {{ __('Ubah') }}

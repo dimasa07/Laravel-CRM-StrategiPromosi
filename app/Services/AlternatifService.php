@@ -38,6 +38,19 @@ class AlternatifService
       return $alternatif;
   }
 
+  public function getByKode($kode)
+  {
+      $alternatif = Alternatif::where('kode_alternatif', '=', $kode)->first();
+      if(!is_null($alternatif)){
+        $alternatif->hasil;
+        $alternatif->kriteria;
+        $alternatif->penilaian;
+        $alternatif->rincian_biaya;
+      }
+
+      return $alternatif;
+  }
+
   public function update($id, $attributes = [])
   {
       return $this->getById($id)->update($attributes);

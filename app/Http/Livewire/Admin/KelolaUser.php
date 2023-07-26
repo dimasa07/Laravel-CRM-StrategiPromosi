@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 
@@ -110,8 +111,12 @@ class KelolaUser extends Component
         $this->resetErrorBag();
         $userService = new UserService();
         $user = $userService->getById($this->detailUser['id_user']);
-        $user->delete();
-        $this->emit('user.deleted');
-        $this->dataUser = User::all();
+        if($user->username == 'admin' || $user->username == Auth::user()->username){
+            $this->emit('user.deleteFailed');
+        }else{
+            $user->delete();
+            $this->emit('user.deleted');
+            $this->dataUser = User::all();
+        }
     }
 }
