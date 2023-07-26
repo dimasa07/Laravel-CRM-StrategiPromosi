@@ -1,9 +1,9 @@
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-        <div class="p-6 lg:p-8 bg-white border-b border-gray-200" x-data="{ activeTab : 'data' }">
+        <div class="p-6 lg:p-8 bg-white border-b border-gray-200" x-data="{ activeTab : 'data', deleted : false }">
             <div class="flex items-center justify-between py-4">
                 <h1 class="w-auto text-3xl font-bold">Kelola User</h1>
-                <x-button-info @click="activeTab = 'tambah'" x-show="activeTab != 'tambah'">
+                <x-button-info @click="activeTab = 'tambah'" x-show="activeTab == 'data'">
                     Tambah
                 </x-button-info>
                 <x-button-normal style="display: none;" @click="activeTab = 'data'" x-show="activeTab != 'data'">
@@ -29,7 +29,7 @@
                             <x-td>{{ $user->username }}</x-td>
                             <x-td class="text-center">
                                 <div class="inline-flex">
-                                    <x-button-normal>
+                                    <x-button-normal @click="activeTab = 'detail'; deleted = false" wire:click="detail({{ $user->id_user }})">
                                         Detail
                                     </x-button-normal>
                                 </div>
@@ -90,6 +90,51 @@
                             <x-button-success type="submit" wire:loading.attr="disabled" wire:target="photo">
                                 {{ __('Save') }}
                             </x-button-success>
+                        </x-slot>
+                    </x-form-section>
+                </div>
+            </div>
+            <div class="mt-8" x-show="activeTab == 'detail'" style="display: none;">
+                <div>
+                    <x-form-section submit="updateUser" >
+                        <x-slot name="title">
+                            {{ __('Detail User') }}
+                        </x-slot>
+                        <x-slot name="description">
+                            {{ __('Detail user dan dapat mengeditnya.') }}
+                        </x-slot>
+                        <x-slot name="form">
+                            <!-- Nama -->
+                            <div class="col-span-6 sm:col-span-4">
+                                <x-label for="nama_pengguna" value="{{ __('Nama') }}" />
+                                <x-input id="nama_pengguna" type="text" class="mt-1 block w-full" wire:model.defer="detailUser.nama_pengguna" autocomplete="nama_pengguna" />
+                                <x-input-error for="detailUser.nama_pengguna" class="mt-2" />
+                            </div>
+                            <!-- Jabatan -->
+                            <div class="col-span-6 sm:col-span-4">
+                                <x-label for="hak_akses" value="{{ __('Jabatan') }}" />
+                                <x-select id="hak_akses" class="mt-1 block w-full" wire:model.defer="detailUser.hak_akses" autocomplete="hak_akses">
+                                    <option value="Admin">Admin</option>
+                                    <option value="PPSB">PPSB</option>
+                                </x-select>
+                                <x-input-error for="state.hak_akses" class="mt-2" />
+                            </div>
+                        </x-slot>
+                        <x-slot name="actions">
+                            <x-action-message class="mr-3" on="user.updated">
+                                {{ __('Berhasil update User !') }}
+                            </x-action-message>
+                            <x-action-message class="mr-3" on="user.deleted">
+                                {{ __('Data User telah dihapus.') }}
+                            </x-action-message>
+                            <div class="inline-flex" x-show="!deleted">
+                                <x-button-info class="mx-2" type="submit" wire:loading.attr="disabled" wire:target="photo">
+                                    {{ __('Ubah') }}
+                                </x-button-info>
+                                <x-button-danger type="button" wire:click="deleteUser" @click="deleted = true" wire:loading.attr="disabled" wire:target="photo">
+                                    {{ __('Hapus') }}
+                                </x-button-danger>
+                            </div>
                         </x-slot>
                     </x-form-section>
                 </div>

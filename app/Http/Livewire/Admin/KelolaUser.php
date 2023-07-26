@@ -14,6 +14,7 @@ class KelolaUser extends Component
 {
     public $dataUser;
     public $state = [];
+    public $detailUser;
 
     public function render()
     {
@@ -69,13 +70,48 @@ class KelolaUser extends Component
 
             $this->state = [
                 'nama_pengguna' => '',
+                'hak_akses' => 'Admin',
                 'username' => '',
                 'password' => '',
                 'password_confirmation' => '',
             ];
 
             $this->dataUser = User::all();
-        }
-        
+        }  
+    }
+
+    public function detail($id)
+    {
+        $this->resetErrorBag();
+        $userService = new UserService();
+        $this->detailUser = $userService->getById($id)->withoutRelations()->toArray(); 
+    }
+
+    public function updateUser()
+    {
+        $this->resetErrorBag();
+        $this->validate([
+            'detailUser.nama_pengguna' => 'required'
+        ],[
+            'detailUser.nama_pengguna.required' => 'Tidak boleh kosong.'
+        ]);
+
+        $userService = new UserService();
+        $user = $userService->getById($this->detailUser['id_user']);
+        $user->fill($this->detailUser);
+        $user->save();
+
+        $this->emit('user.updated');
+        $this->dataUser = User::all();
+    }
+
+    public function deleteUser()
+    {
+        $this->resetErrorBag();
+        $userService = new UserService();
+        $user = $userService->getById($this->detailUser['id_user']);
+        $user->delete();
+        $this->emit('user.deleted');
+        $this->dataUser = User::all();
     }
 }
