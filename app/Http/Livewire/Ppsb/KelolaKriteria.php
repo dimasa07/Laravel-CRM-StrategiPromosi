@@ -35,12 +35,13 @@ class KelolaKriteria extends Component
         $this->resetErrorBag();
 
         $this->validate([
-            'state.kode_kriteria' => 'required',
+            'state.kode_kriteria' => 'required|max:5',
             'state.nama_kriteria' => 'required',
             'state.keterangan' => 'required',
             'state.bobot' => 'required',
         ],[
             'state.kode_kriteria.required' => 'Tidak boleh kosong.',
+            'state.kode_kriteria.max' => 'Kode maksimal 5 karakter.',
             'state.nama_kriteria.required' => 'Tidak boleh kosong.',
             'state.keterangan.required' => 'Tidak boleh kosong.',
             'state.bobot.required' => 'Tidak boleh kosong.',

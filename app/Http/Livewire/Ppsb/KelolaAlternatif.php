@@ -36,13 +36,14 @@ class KelolaAlternatif extends Component
         $this->resetErrorBag();
 
         $this->validate([
-            'state.kode_alternatif' => 'required',
+            'state.kode_alternatif' => 'required|max:5',
             'state.bauran_promosi' => 'required',
             'state.jenis' => 'required',
             'state.waktu_promosi' => 'required',
             'state.skala_promosi' => 'required',
         ],[
             'state.kode_alternatif.required' => 'Tidak boleh kosong.',
+            'state.kode_alternatif.max' => 'Kode maksimal 5 karakter.',
             'state.bauran_promosi.required' => 'Tidak boleh kosong.',
             'state.jenis.required' => 'Tidak boleh kosong.',
             'state.waktu_promosi.required' => 'Tidak boleh kosong.',

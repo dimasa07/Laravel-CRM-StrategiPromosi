@@ -40,4 +40,12 @@ class Alternatif extends Model
     public function penilaian(){
         return $this->hasMany(Penilaian::class, 'id_alternatif');
     }
+
+    public function totalHarga(){
+        $totalHarga =  0;
+        foreach($this->rincian_biaya as $rincian){
+            $totalHarga += $rincian->total;
+        }
+        return $totalHarga;
+    }
 }

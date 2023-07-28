@@ -19,7 +19,7 @@ class KelolaUser extends Component
 
     public function render()
     {
-        return view('livewire.admin.kelola-user');
+        return view('livewire.admin.kelola-user', ['detailUser' => $this->detailUser]);
     }
 
     public function mount(){
@@ -100,6 +100,10 @@ class KelolaUser extends Component
         $userService = new UserService();
         $user = $userService->getById($this->detailUser['id_user']);
         $user->fill($this->detailUser);
+        if($user->username == 'admin'){
+            $user->hak_akses = 'Admin';
+            $this->detailUser['hak_akses'] = 'Admin';
+        }
         $user->save();
 
         $this->emit('user.updated');

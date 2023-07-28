@@ -32,6 +32,9 @@
                     <x-nav-link href="{{ route('ppsb.kelola-kriteria') }}" :active="request()->routeIs('ppsb.kelola-kriteria') ">
                         {{ __('Kriteria') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('ppsb.kelola-rincian-biaya') }}" :active="request()->routeIs('ppsb.kelola-rincian-biaya') ">
+                        {{ __('Rincian Biaya') }}
+                    </x-nav-link>
                     @endif
                 </div>
             </div>
@@ -83,9 +86,28 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+            @if(Auth::user()->hak_akses == 'Admin')
+            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('admin.index')  ">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('admin.kelola-user') }}" :active="request()->routeIs('admin.kelola-user') ">
+                {{ __('Kelola User') }}
+            </x-responsive-nav-link>
+            @endif
+            @if(Auth::user()->hak_akses == 'PPSB')
+            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('ppsb.index')  ">
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('ppsb.kelola-alternatif') }}" :active="request()->routeIs('ppsb.kelola-alternatif') ">
+                {{ __('Alternatif') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('ppsb.kelola-kriteria') }}" :active="request()->routeIs('ppsb.kelola-kriteria') ">
+                {{ __('Kriteria') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('ppsb.kelola-rincian-biaya') }}" :active="request()->routeIs('ppsb.kelola-rincian-biaya') ">
+                {{ __('Rincian Biaya') }}
+            </x-responsive-nav-link>
+            @endif
         </div>
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">

@@ -30,6 +30,15 @@ class RincianBiayaService
       return $rincianBiaya;
   }
 
+  public function getByIdAlternatif($id)
+  {
+      $dataRincianBiaya = RincianBiaya::where('id_alternatif', '=', $id)->get();
+      foreach($dataRincianBiaya as $rincianBiaya){
+        $rincianBiaya->alternatif;
+      }
+      return $dataRincianBiaya;
+  }
+
   public function update($id, $attributes = [])
   {
       return $this->getById($id)->update($attributes);

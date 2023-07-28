@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Auth;
 */
  
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('auth.form.login');
+    // return view('welcome');
 });
 
 Route::middleware([
@@ -126,5 +127,10 @@ Route::prefix('/ppsb')
             Route::get('/', function(){
                 return view('ppsb.kelola-kriteria');
             })->name('ppsb.kelola-kriteria');
+        });
+        Route::prefix('/kelola-rincian-biaya')->group(function(){
+            Route::get('/', function(){
+                return view('ppsb.kelola-rincian-biaya');
+            })->name('ppsb.kelola-rincian-biaya');
         });
     });
