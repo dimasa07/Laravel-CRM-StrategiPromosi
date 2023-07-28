@@ -113,7 +113,7 @@ Route::prefix('/admin')
         });
     });
 
-//USER
+//PPSB
 Route::prefix('/ppsb')
     ->controller(PPSBController::class)
     ->group(function(){
@@ -132,5 +132,10 @@ Route::prefix('/ppsb')
             Route::get('/', function(){
                 return view('ppsb.kelola-rincian-biaya');
             })->name('ppsb.kelola-rincian-biaya');
+        });
+        Route::prefix('/kelola-pendaftar')->group(function(){
+            Route::get('/', function(){
+                return view('ppsb.kelola-pendaftar');
+            })->name('ppsb.kelola-pendaftar');
         });
     });

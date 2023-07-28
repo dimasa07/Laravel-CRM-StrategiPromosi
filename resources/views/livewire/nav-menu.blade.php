@@ -35,6 +35,9 @@
                     <x-nav-link href="{{ route('ppsb.kelola-rincian-biaya') }}" :active="request()->routeIs('ppsb.kelola-rincian-biaya') ">
                         {{ __('Rincian Biaya') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('ppsb.kelola-pendaftar') }}" :active="request()->routeIs('ppsb.kelola-pendaftar') ">
+                        {{ __('Pendaftar') }}
+                    </x-nav-link>
                     @endif
                 </div>
             </div>
@@ -106,6 +109,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('ppsb.kelola-rincian-biaya') }}" :active="request()->routeIs('ppsb.kelola-rincian-biaya') ">
                 {{ __('Rincian Biaya') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('ppsb.kelola-pendaftar') }}" :active="request()->routeIs('ppsb.kelola-pendaftar') ">
+                {{ __('Pendaftar') }}
             </x-responsive-nav-link>
             @endif
         </div>
