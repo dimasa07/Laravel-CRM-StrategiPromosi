@@ -128,6 +128,11 @@ Route::prefix('/ppsb')
                 return view('ppsb.kelola-kriteria');
             })->name('ppsb.kelola-kriteria');
         });
+        Route::prefix('/kelola-penilaian')->group(function(){
+            Route::get('/', function(){
+                return view('ppsb.kelola-penilaian');
+            })->name('ppsb.kelola-penilaian');
+        });
         Route::prefix('/kelola-rincian-biaya')->group(function(){
             Route::get('/', function(){
                 return view('ppsb.kelola-rincian-biaya');

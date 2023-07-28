@@ -108,8 +108,7 @@ class KelolaPendaftar extends Component
         $pendaftar = $pendaftarService->getById($this->detailPendaftar['id_pendaftar']);
         $pendaftar->delete();
         $this->emit('pendaftar.deleted');
-        $this->dataPendaftar = Pendaftar::all();
-        
+        $this->dataPendaftar = Pendaftar::all();   
     }
 
 }
