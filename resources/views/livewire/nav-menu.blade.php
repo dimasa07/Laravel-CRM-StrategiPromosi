@@ -33,7 +33,7 @@
                         {{ __('Kriteria') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('ppsb.kelola-penilaian') }}" :active="request()->routeIs('ppsb.kelola-penilaian') ">
-                        {{ __('Penilaian') }}
+                        {{ __('Penilaian dan Rekomendasi') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('ppsb.kelola-rincian-biaya') }}" :active="request()->routeIs('ppsb.kelola-rincian-biaya') ">
                         {{ __('Rincian Biaya') }}
@@ -111,7 +111,7 @@
                 {{ __('Kriteria') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('ppsb.kelola-penilaian') }}" :active="request()->routeIs('ppsb.kelola-penilaian') ">
-                {{ __('Penilaian') }}
+                {{ __('Penilaian dan Rekomendasi') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('ppsb.kelola-rincian-biaya') }}" :active="request()->routeIs('ppsb.kelola-rincian-biaya') ">
                 {{ __('Rincian Biaya') }}
