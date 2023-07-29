@@ -7,16 +7,19 @@ use Livewire\Component;
 use App\Models\Penilaian;
 use App\Models\Alternatif;
 use App\Models\Kriteria;
+use App\Models\Hasil;
 
 use App\Services\PenilaianService;
 use App\Services\AlternatifService;
 use App\Services\KriteriaService;
+use App\Services\HasilService;
 
 class KelolaPenilaian extends Component
 {
     public $dataAlternatif;
     public $dataKriteria;
     public $dataPenilaian;
+    public $dataHasil;
     public $detailPenilaian;
     public $state = [];
 
@@ -29,11 +32,13 @@ class KelolaPenilaian extends Component
         $this->dataAlternatif = Alternatif::all();
         $this->dataKriteria = Kriteria::all();
         $this->dataPenilaian = Penilaian::all();
+        $this->hasilPenilaian = Hasil::all();
         $this->state = [
             'id_alternatif' => '',
             'id_kriteria' => '',
             'bobot' => '',
         ];
+        $this->hitungHasil();
     }
 
     public function tambah()
@@ -51,20 +56,27 @@ class KelolaPenilaian extends Component
         ]);
 
         $penilaianService = new PenilaianService();
-        
-        $penilaian = new Penilaian();
-        $penilaian->fill($this->state);
-        $penilaianService->add($penilaian);
+        $checkPenilaian = $penilaianService->getByIdAlternatifAndIdKriteria($this->state['id_alternatif'], $this->state['id_kriteria']);
+        if(!is_null($checkPenilaian)){
+            $this->addError('state.id_alternatif', 'Penilaian untuk Alternatif dan Kriteria ini telah tersedia.');
+            $this->addError('state.id_kriteria', 'Penilaian untuk Alternatif dan Kriteria ini telah tersedia.');
+        }else{
+            $penilaian = new Penilaian();
+            $penilaian->fill($this->state);
+            $penilaianService->add($penilaian);
 
-        $this->emit('penilaian.saved');
+            $this->emit('penilaian.saved');
 
-        $this->state = [
-            'id_alternatif' => '',
-            'id_kriteria' => '',
-            'bobot' => '',
-        ];
+            $this->state = [
+                'id_alternatif' => '',
+                'id_kriteria' => '',
+                'bobot' => '',
+            ];
 
-        $this->dataPenilaian = Penilaian::all();
+            $this->dataPenilaian = Penilaian::all();
+            $this->dataKriteria = Kriteria::all();
+            $this->dataPenilaian = Penilaian::all();
+        }
     }
 
     public function detail($id)
@@ -105,6 +117,38 @@ class KelolaPenilaian extends Component
         $penilaian->delete();
         $this->emit('penilaian.deleted');
         $this->dataPenilaian = Penilaian::all();   
+    }
+
+    public function hitungHasil()
+    {
+        $penilaianService = new PenilaianService();
+        $hasilService = new HasilService();
+        foreach ($this->dataAlternatif as $alternatif) {
+            $nilai = 0;
+            $x = 0;
+            $y = 1;
+            foreach($alternatif->kriteria as $kriteria){
+                $bobotAlternatif = $penilaianService->getByIdAlternatifAndIdKriteria($alternatif->id_alternatif, $kriteria->id_kriteria)->bobot;
+                $x += $bobotAlternatif;
+                $y *= pow($bobotAlternatif / $kriteria->bobot, $kriteria->bobot);
+            }
+            $nilai = (0.5 * $x) + (0.5 * $y);
+            $checkAlternatif = $hasilService->getByIdAlternatif($alternatif->id_alternatif);
+            if(is_null($checkAlternatif)){
+                $hasil = new Hasil();
+                $hasil->id_alternatif = $alternatif->id_alternatif;
+                $hasil->nilai = $nilai;
+                $hasilService->add($hasil);
+            }else{
+                $hasilService->update($checkAlternatif->id_hasil, ['nilai' => $nilai]);
+            }
+            
+        }
+        $dataOrdered = Hasil::orderBy('nilai', 'DESC')->get();
+        foreach($dataOrdered as $index => $hasil){
+            $hasilService->update($hasil->id_hasil, ['urutan' => $index +1]);
+        }
+        $this->dataHasil = Hasil::all();
     }
 
 }

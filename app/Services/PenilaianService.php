@@ -22,6 +22,16 @@ class PenilaianService
       return Penilaian::where('id_penilaian', '=', $id)->first();
   }
 
+  public function getByIdAlternatifAndIdKriteria($idAlternatif, $idKriteria)
+  {
+        $penilaian = Penilaian::where([
+            ['id_alternatif', '=', $idAlternatif],
+            ['id_kriteria', '=', $idKriteria]
+        ])->first();
+
+        return $penilaian;
+  }
+
   public function update($id, $attributes = [])
   {
       return $this->getById($id)->update($attributes);

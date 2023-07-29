@@ -28,6 +28,12 @@ class HasilService
       return $hasil;
   }
 
+  public function getByIdAlternatif($id)
+  {
+      $hasil = Hasil::where('id_alternatif', '=', $id)->first();
+      return $hasil;
+  }
+
   public function update($id, $attributes = [])
   {
       return $this->getById($id)->update($attributes);

@@ -27,7 +27,7 @@
                                 <x-td class="text-center">{{ $index+1 }}</x-td>
                                 <x-td>{{ $penilaian->alternatif->kode_alternatif }} ({{ $penilaian->alternatif->jenis }})</x-td>
                                 <x-td>{{ $penilaian->kriteria->kode_kriteria }} ({{ $penilaian->kriteria->nama_kriteria }})</x-td>
-                                <x-td>{{ $penilaian->bobot }}</x-td>
+                                <x-td class="text-center">{{ $penilaian->bobot }}</x-td>
                                 <x-td class="text-center">
                                     <div class="inline-flex">
                                         <x-button-normal @click="activeTab = 'detail'; deleted = false" wire:click="detail({{ $penilaian->id_penilaian }})">
@@ -56,7 +56,7 @@
                                     <x-select id="id_alternatif" class="mt-1 block w-full" wire:model.defer="state.id_alternatif" autocomplete="id_alternatif">
                                         <option value="">--PILIH JENIS ALTERNATIF--</option>
                                         @foreach($dataAlternatif as $alternatif)
-                                        <option value="{{ $alternatif->id_alternatif }}">{{ $alternatif->jenis }}</option>
+                                        <option value="{{ $alternatif->id_alternatif }}">{{ $alternatif->kode_alternatif }} ({{ $alternatif->jenis }})</option>
                                         @endforeach
                                     </x-select>
                                     <x-input-error for="state.id_alternatif" class="mt-2" />
@@ -67,7 +67,7 @@
                                     <x-select id="id_kriteria" class="mt-1 block w-full" wire:model.defer="state.id_kriteria" autocomplete="id_kriteria">
                                         <option value="">--PILIH KRITERIA--</option>
                                         @foreach($dataKriteria as $kriteria)
-                                        <option value="{{ $kriteria->id_kriteria }}">{{ $kriteria->nama_kriteria }}</option>
+                                        <option value="{{ $kriteria->id_kriteria }}">{{ $kriteria->kode_kriteria }} ({{ $kriteria->nama_kriteria }})</option>
                                         @endforeach
                                     </x-select>
                                     <x-input-error for="state.id_kriteria" class="mt-2" />
@@ -103,7 +103,7 @@
                                 <!-- Jenis Alternatif -->
                                 <div class="col-span-6 sm:col-span-4">
                                     <x-label for="id_alternatif" value="{{ __('Jenis Alternatif') }}" />
-                                    <x-select id="id_alternatif" class="mt-1 block w-full" wire:model.defer="detailPenilaian.id_alternatif" autocomplete="id_alternatif">
+                                    <x-select disabled id="id_alternatif" class="mt-1 block w-full" wire:model.defer="detailPenilaian.id_alternatif" autocomplete="id_alternatif">
                                         <option value="">--PILIH JENIS ALTERNATIF--</option>
                                         @foreach($dataAlternatif as $alternatif)
                                         <option value="{{ $alternatif->id_alternatif }}">{{ $alternatif->jenis }}</option>
@@ -114,7 +114,7 @@
                                 <!-- Kriteria -->
                                 <div class="col-span-6 sm:col-span-4">
                                     <x-label for="id_kriteria" value="{{ __('Kriteria') }}" />
-                                    <x-select id="id_kriteria" class="mt-1 block w-full" wire:model.defer="detailPenilaian.id_kriteria" autocomplete="id_kriteria">
+                                    <x-select disabled id="id_kriteria" class="mt-1 block w-full" wire:model.defer="detailPenilaian.id_kriteria" autocomplete="id_kriteria">
                                         <option value="">--PILIH KRITERIA--</option>
                                         @foreach($dataKriteria as $kriteria)
                                         <option value="{{ $kriteria->id_kriteria }}">{{ $kriteria->nama_kriteria }}</option>
@@ -160,7 +160,7 @@
                     <h1 class="w-auto text-3xl font-bold">Bobot Dari Setiap Alternatif</h1>
                 </div>
                 <hr>
-                <div class="mt-8" x-show="activeTab == 'data'">
+                <div class="mt-8">
                     <div>
                         <x-table class="border-0">
                             <tr>
@@ -196,7 +196,7 @@
                     <h1 class="w-auto text-3xl font-bold">Matriks Keputusan</h1>
                 </div>
                 <hr>
-                <div class="mt-8" x-show="activeTab == 'data'">
+                <div class="mt-8">
                     <div>
                         <x-table class="border-0">
                             @foreach($dataAlternatif as $index => $alternatif)
@@ -227,7 +227,7 @@
                     <h1 class="w-auto text-3xl font-bold">Matriks Normalisasi</h1>
                 </div>
                 <hr>
-                <div class="mt-8" x-show="activeTab == 'data'">
+                <div class="mt-8">
                     <div>
                         <x-table class="border-0">
                             @foreach($dataAlternatif as $index => $alternatif)
@@ -245,6 +245,37 @@
                                 @endif
                                 @endforeach
                                 @endforeach
+                            </tr>
+                            @endforeach
+                        </x-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4 max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="p-6 lg:p-8 bg-white border-b border-gray-200" x-data="{ activeTab : 'data', deleted : false }">
+                <div class="flex items-center justify-between py-4">
+                    <h1 class="w-auto text-3xl font-bold">Hasil Keseluruhan Perhitungan</h1>
+                </div>
+                <hr>
+                <div class="mt-8">
+                    <div>
+                        <x-table class="border-0">
+                            <tr>
+                                <x-th>No</x-th>
+                                <x-th>Alternatif</x-th>
+                                <x-th>Hasil</x-th>
+                                <x-th>Urutan</x-th>
+                            </tr>
+                            @foreach($dataHasil as $index => $hasil)
+                            <tr>
+                                <x-td class="text-center">{{ $index+1 }}</x-td>
+                                <x-td>{{ $hasil->alternatif->kode_alternatif }} ({{ $hasil->alternatif->jenis }})</x-td>
+                                <x-td>{{ $hasil->nilai }}</x-td>
+                                <x-td class="text-center">{{ $hasil->urutan }}</x-td>
                             </tr>
                             @endforeach
                         </x-table>
