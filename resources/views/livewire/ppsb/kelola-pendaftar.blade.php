@@ -95,10 +95,10 @@
                 <div>
                     <x-form-section submit="update" >
                         <x-slot name="title">
-                            {{ __('Detail Kriteria') }}
+                            {{ __('Detail Pendaftar') }}
                         </x-slot>
                         <x-slot name="description">
-                            {{ __('Detail kriteria dan dapat mengeditnya.') }}
+                            {{ __('Detail pendaftar dan dapat mengeditnya.') }}
                         </x-slot>
                         <x-slot name="form">
                             <!-- Nama Pendaftar -->

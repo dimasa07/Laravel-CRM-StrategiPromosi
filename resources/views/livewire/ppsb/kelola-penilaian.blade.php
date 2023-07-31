@@ -106,7 +106,7 @@
                                     <x-select disabled id="id_alternatif" class="mt-1 block w-full" wire:model.defer="detailPenilaian.id_alternatif" autocomplete="id_alternatif">
                                         <option value="">--PILIH JENIS ALTERNATIF--</option>
                                         @foreach($dataAlternatif as $alternatif)
-                                        <option value="{{ $alternatif->id_alternatif }}">{{ $alternatif->jenis }}</option>
+                                        <option value="{{ $alternatif->id_alternatif }}">{{ $alternatif->kode_alternatif }} ({{ $alternatif->jenis }})</option>
                                         @endforeach
                                     </x-select>
                                     <x-input-error for="detailPenilaian.id_alternatif" class="mt-2" />
@@ -117,7 +117,7 @@
                                     <x-select disabled id="id_kriteria" class="mt-1 block w-full" wire:model.defer="detailPenilaian.id_kriteria" autocomplete="id_kriteria">
                                         <option value="">--PILIH KRITERIA--</option>
                                         @foreach($dataKriteria as $kriteria)
-                                        <option value="{{ $kriteria->id_kriteria }}">{{ $kriteria->nama_kriteria }}</option>
+                                        <option value="{{ $kriteria->id_kriteria }}">{{ $kriteria->kode_kriteria }} ({{ $kriteria->nama_kriteria }})</option>
                                         @endforeach
                                     </x-select>
                                     <x-input-error for="detailPenilaian.id_kriteria" class="mt-2" />
@@ -172,12 +172,22 @@
                             @foreach($dataAlternatif as $index => $alternatif)
                             <tr>
                                 <x-td>{{ $alternatif->kode_alternatif }} ({{ $alternatif->jenis }})</x-td>
-                                @foreach($alternatif->kriteria as $kriteria)
-                                @foreach($dataPenilaian as $penilaian)
-                                @if($penilaian->id_alternatif == $alternatif->id_alternatif && $penilaian->id_kriteria == $kriteria->id_kriteria)
-                                <x-th>{{ $penilaian->bobot }}</x-th>
-                                @endif
-                                @endforeach
+                                @foreach($dataKriteria as $k)
+                                    @php $tmp = false; @endphp
+                                    @foreach($alternatif->kriteria as $kriteria)
+                                        @if($kriteria->kode_kriteria == $k->kode_kriteria)
+                                            @foreach($dataPenilaian as $penilaian)
+                                                @if($penilaian->id_alternatif == $alternatif->id_alternatif && $penilaian->id_kriteria == $kriteria->id_kriteria)
+                                                    <x-th>{{ $penilaian->bobot }}</x-th>
+                                                    @php $tmp = true; @endphp
+                                                    @break
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                    @if(!$tmp)
+                                        <x-th></x-th>
+                                    @endif
                                 @endforeach
                             </tr>
                             @endforeach
@@ -204,12 +214,22 @@
                                 @if($index == 0)
                                 <th rowspan="4" class="text-right pr-4">X = </th>
                                 @endif
-                                @foreach($alternatif->kriteria as $kriteria)
-                                @foreach($dataPenilaian as $penilaian)
-                                @if($penilaian->id_alternatif == $alternatif->id_alternatif && $penilaian->id_kriteria == $kriteria->id_kriteria)
-                                <x-th>{{ $penilaian->bobot }}</x-th>
-                                @endif
-                                @endforeach
+                                @foreach($dataKriteria as $k)
+                                    @php $tmp = false; @endphp
+                                    @foreach($alternatif->kriteria as $kriteria)
+                                        @if($kriteria->kode_kriteria == $k->kode_kriteria)
+                                            @foreach($dataPenilaian as $penilaian)
+                                                @if($penilaian->id_alternatif == $alternatif->id_alternatif && $penilaian->id_kriteria == $kriteria->id_kriteria)
+                                                    <x-th>{{ $penilaian->bobot }}</x-th>
+                                                    @php $tmp = true; @endphp
+                                                    @break
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                    @if(!$tmp)
+                                        <x-th></x-th>
+                                    @endif
                                 @endforeach
                             </tr>
                             @endforeach
@@ -235,15 +255,25 @@
                                 @if($index == 0)
                                 <th rowspan="4" class="text-right pr-4">X = </th>
                                 @endif
-                                @foreach($alternatif->kriteria as $kriteria)
-                                @foreach($dataPenilaian as $penilaian)
-                                @if($penilaian->id_alternatif == $alternatif->id_alternatif && $penilaian->id_kriteria == $kriteria->id_kriteria)
-                                <x-th>
-                                    {{ $penilaian->bobot }} / 
-                                    {{ $kriteria->bobot }} = {{ round($penilaian->bobot / $kriteria->bobot, 2) }}
-                                </x-th>
-                                @endif
-                                @endforeach
+                                @foreach($dataKriteria as $k)
+                                    @php $tmp = false; @endphp
+                                    @foreach($alternatif->kriteria as $kriteria)
+                                        @if($kriteria->kode_kriteria == $k->kode_kriteria)
+                                            @foreach($dataPenilaian as $penilaian)
+                                                @if($penilaian->id_alternatif == $alternatif->id_alternatif && $penilaian->id_kriteria == $kriteria->id_kriteria)
+                                                    <x-th>
+                                                        {{ $penilaian->bobot }} / 
+                                                        {{ $kriteria->bobot }} = {{ round($penilaian->bobot / $kriteria->bobot, 2) }}
+                                                    </x-th>
+                                                    @php $tmp = true; @endphp
+                                                    @break
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                    @if(!$tmp)
+                                        <x-th></x-th>
+                                    @endif
                                 @endforeach
                             </tr>
                             @endforeach

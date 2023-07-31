@@ -29,16 +29,13 @@ class KelolaPenilaian extends Component
     }
 
     public function mount(){
-        $this->dataAlternatif = Alternatif::all();
-        $this->dataKriteria = Kriteria::all();
-        $this->dataPenilaian = Penilaian::all();
-        $this->hasilPenilaian = Hasil::all();
         $this->state = [
             'id_alternatif' => '',
             'id_kriteria' => '',
             'bobot' => '',
         ];
         $this->hitungHasil();
+        $this->refreshData();
     }
 
     public function tambah()
@@ -72,10 +69,8 @@ class KelolaPenilaian extends Component
                 'id_kriteria' => '',
                 'bobot' => '',
             ];
-
-            $this->dataPenilaian = Penilaian::all();
-            $this->dataKriteria = Kriteria::all();
-            $this->dataPenilaian = Penilaian::all();
+            $this->hitungHasil();
+            $this->refreshData();
         }
     }
 
@@ -106,7 +101,8 @@ class KelolaPenilaian extends Component
         $penilaian->save();
 
         $this->emit('penilaian.updated');
-        $this->dataPenilaian = Penilaian::all();
+        $this->hitungHasil();
+        $this->refreshData();
     }
 
     public function delete()
@@ -116,11 +112,13 @@ class KelolaPenilaian extends Component
         $penilaian = $penilaianService->getById($this->detailPenilaian['id_penilaian']);
         $penilaian->delete();
         $this->emit('penilaian.deleted');
-        $this->dataPenilaian = Penilaian::all();   
+        $this->hitungHasil();
+        $this->refreshData();
     }
 
     public function hitungHasil()
     {
+        $this->refreshData();
         $penilaianService = new PenilaianService();
         $hasilService = new HasilService();
         foreach ($this->dataAlternatif as $alternatif) {
@@ -142,12 +140,18 @@ class KelolaPenilaian extends Component
             }else{
                 $hasilService->update($checkAlternatif->id_hasil, ['nilai' => $nilai]);
             }
-            
         }
         $dataOrdered = Hasil::orderBy('nilai', 'DESC')->get();
         foreach($dataOrdered as $index => $hasil){
             $hasilService->update($hasil->id_hasil, ['urutan' => $index +1]);
         }
+    }
+
+    public function refreshData()
+    {
+        $this->dataAlternatif = Alternatif::all();
+        $this->dataKriteria = Kriteria::all();
+        $this->dataPenilaian = Penilaian::all();
         $this->dataHasil = Hasil::all();
     }
 

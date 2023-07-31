@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\{AdminController, PPSBController, AuthController, UserController};
+use App\Http\Middleware\{PPSBAccess, AdminAccess};
 
 use Illuminate\Support\Facades\Auth;
 
@@ -56,6 +57,7 @@ Route::prefix('/user')
 // ADMIN
 Route::prefix('/admin')
     ->controller(AdminController::class)
+    ->middleware(AdminAccess::class)
     ->group(function () {
         Route::get('/', 'index')->name('admin.index');
         Route::prefix('/kelola-user')->group(function(){
@@ -116,6 +118,7 @@ Route::prefix('/admin')
 //PPSB
 Route::prefix('/ppsb')
     ->controller(PPSBController::class)
+    ->middleware(PPSBAccess::class)
     ->group(function(){
         Route::get('/', 'index')->name('ppsb.index');
         Route::prefix('/kelola-alternatif')->group(function(){
