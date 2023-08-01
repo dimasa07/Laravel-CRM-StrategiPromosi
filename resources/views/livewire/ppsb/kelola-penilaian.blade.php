@@ -36,7 +36,7 @@
                                     </div>
                                 </x-td>
                             </tr>
-                            @endforeach
+                            @endforeach 
                         </x-table>
                     </div>
                 </div>
