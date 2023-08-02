@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\{AdminController, PPSBController, AuthController, UserController};
+use App\Http\Controllers\{GuestController, AdminController, PPSBController, AuthController, UserController};
 use App\Http\Middleware\{PPSBAccess, AdminAccess};
 
 use Illuminate\Support\Facades\Auth;
@@ -18,10 +18,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
  
-Route::get('/', function () {
-    // return redirect()->route('auth.form.login');
-    return view('welcome');
-});
+Route::get('/', [GuestController::class, 'index']);
 
 Route::middleware([
     'auth:sanctum',
