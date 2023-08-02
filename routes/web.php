@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Auth;
 */
  
 Route::get('/', function () {
-    return redirect()->route('auth.form.login');
-    // return view('welcome');
+    // return redirect()->route('auth.form.login');
+    return view('welcome');
 });
 
 Route::middleware([

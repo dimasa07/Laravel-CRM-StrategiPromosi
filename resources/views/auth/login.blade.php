@@ -26,7 +26,7 @@
                 </a>
             </div>
             <div class="mt-2">
-                <h1 class="font-bold text-2xl">Sistem Informasi Strategi Promosi</h1>
+                <h1 class="font-bold text-2xl">Sistem Informasi Strategi Promosi<br>Pondok Pesantren Al-Basyariyah II</h1>
             </div>
             <div class="w-full sm:max-w-md mt-6 px-6 py-8 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 @if ($errors->any())
