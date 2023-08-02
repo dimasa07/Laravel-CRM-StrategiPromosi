@@ -56,6 +56,27 @@ CREATE TABLE `failed_jobs` (
 
 /*Data for the table `failed_jobs` */
 
+/*Table structure for table `gambar` */
+
+DROP TABLE IF EXISTS `gambar`;
+
+CREATE TABLE `gambar` (
+  `id_gambar` int(10) NOT NULL AUTO_INCREMENT,
+  `nama_gambar` text DEFAULT NULL,
+  `urutan` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id_gambar`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `gambar` */
+
+insert  into `gambar`(`id_gambar`,`nama_gambar`,`urutan`) values 
+(28,'img/FEcgTstgItyuVeiZdKl0zO0qaQFXbgwHMgix2rlB.jpg',1),
+(29,'img/brTomXWd5APwyIT7PYuyTg8dNHRghPeDTwOjFbtK.jpg',2),
+(30,'img/73U2tIPIRqaJapQ0UocnqKRQoLM92gasZm4ChfyM.jpg',3),
+(31,'img/LkBY9tiGRm47J2UlBo8MaPbM57PFZtFzYme0HCbg.jpg',4),
+(32,'img/jPlGtcolaURZZx7b0YOFs8P5emBukVQYLIRERxIs.jpg',5),
+(34,'img/xMJkEITdwZZxTX6VWSbEAvviL7EpIH7ZlruzMoAi.jpg',6);
+
 /*Table structure for table `hasil` */
 
 DROP TABLE IF EXISTS `hasil`;
@@ -166,23 +187,23 @@ CREATE TABLE `penilaian` (
   KEY `id_kriteria` (`id_kriteria`),
   CONSTRAINT `penilaian_ibfk_1` FOREIGN KEY (`id_alternatif`) REFERENCES `alternatif` (`id_alternatif`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `penilaian_ibfk_2` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id_kriteria`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `penilaian` */
 
 insert  into `penilaian`(`id_penilaian`,`id_alternatif`,`id_kriteria`,`bobot`) values 
-(4,2,6,2),
 (5,2,7,4),
 (6,2,8,3),
 (7,8,6,1),
-(8,8,7,3),
 (9,8,8,2),
 (10,9,6,2),
 (11,9,7,1),
 (12,9,8,3),
 (13,10,6,3),
 (14,10,7,2),
-(17,10,8,1);
+(19,10,8,1),
+(23,2,6,2),
+(24,8,7,3);
 
 /*Table structure for table `personal_access_tokens` */
 
@@ -246,7 +267,7 @@ CREATE TABLE `sessions` (
 /*Data for the table `sessions` */
 
 insert  into `sessions`(`id`,`user_id`,`ip_address`,`user_agent`,`payload`,`last_activity`) values 
-('PEdjNvwqXlVK6EbgjUeo29NYLUnkh4qajRfbapLe',28,'127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36','YTo1OntzOjY6Il90b2tlbiI7czo0MDoidGtZQmlxQVNabEJCaWVEaHFDY05pWTdTRFU3c1VodW1ydXlucUFzVCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjg7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTAkOGljakNVLm9PYzdBMkREVkcyVVN6dVp6c0RDaUZacHJ3eW9IaXRyN2tSeTMxQWowUGluUU8iO3M6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQzOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvcHBzYi9rZWxvbGEtcGVuaWxhaWFuIjt9fQ==',1690627194);
+('vn4azE8PCjV6RhPiVaFnm0IiCcOHKnHxRS6t8Qix',NULL,'127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiWnlVMVFHOWhsaWZOT2w4VVhCVjdyWmsxZGNtZURpR3lnd0NDbUpHTCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7fX0=',1690971933);
 
 /*Table structure for table `user` */
 
